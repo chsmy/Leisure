@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Leisure</string>
+
+    <!--底部菜单-->
+    <string name="news">新闻</string>
+    <string name="pictures">美图</string>
+    <string name="found">知识</string>
+    <string name="about">关于</string>
+    <!--menu-->
+    <string name="scanning">关于</string>
+</resources>

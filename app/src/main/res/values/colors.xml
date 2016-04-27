@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">#00000000 </color>
+    <color name="white">#FFFFFF</color>
+    <color name="topbar_bg">#12AF4D</color>
+    <color name="tab_bg">#f9f9f9</color>
+    <color name="tab_text_bg">#bababa</color>
+    <color name="line_bg">#f0f0f0</color>
+
+    <color name="red">#FFC93437</color>
+    <color name="blue">#FF375BF1</color>
+    <color name="yellow">#FFF7D23E</color>
+    <color name="green">#FF34A350</color>
+</resources>

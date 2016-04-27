@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../android-Ultra-Pull-To-Refresh.iml" filepath="$PROJECT_DIR$/../android-Ultra-Pull-To-Refresh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ptr-demo/ptr-demo.iml" filepath="$PROJECT_DIR$/../ptr-demo/ptr-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ptr-lib.iml" filepath="$PROJECT_DIR$/ptr-lib.iml" />
+    </modules>
+  </component>
+</project>

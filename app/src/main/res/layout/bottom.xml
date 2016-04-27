@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:background="@color/white"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal" >
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tab_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tab_news"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@mipmap/tab_comprehensive_icon"
+            android:text="@string/news"
+            android:textColor="@color/tab_text_bg"/>
+        <RadioButton
+            android:id="@+id/tab_pictures"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@mipmap/tab_move_icon"
+            android:text="@string/pictures"
+            android:textColor="@color/tab_text_bg"/>
+        <RadioButton
+            android:id="@+id/tab_found"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@mipmap/tab_found_icon"
+            android:gravity="center"
+            android:text="@string/found"
+            android:textColor="@color/tab_text_bg"/>
+        <RadioButton
+            android:id="@+id/tab_about"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@mipmap/tab_me_icon"
+            android:text="@string/about"
+            android:textColor="@color/tab_text_bg"/>
+    </RadioGroup>
+
+</LinearLayout>

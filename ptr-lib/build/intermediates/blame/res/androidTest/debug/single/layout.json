@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\xiangmu\\android-Ultra-Pull-To-Refresh-master\\android-Ultra-Pull-To-Refresh-master\\ptr-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\cube_ptr_classic_default_header.xml",
+        "source": "D:\\xiangmu\\android-Ultra-Pull-To-Refresh-master\\android-Ultra-Pull-To-Refresh-master\\ptr-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\cube_ptr_classic_default_header.xml"
+    },
+    {
+        "merged": "D:\\xiangmu\\android-Ultra-Pull-To-Refresh-master\\android-Ultra-Pull-To-Refresh-master\\ptr-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\cube_ptr_simple_loading.xml",
+        "source": "D:\\xiangmu\\android-Ultra-Pull-To-Refresh-master\\android-Ultra-Pull-To-Refresh-master\\ptr-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\cube_ptr_simple_loading.xml"
+    },
+    {
+        "merged": "D:\\github\\Leisure\\ptr-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\cube_ptr_simple_loading.xml",
+        "source": "D:\\github\\Leisure\\ptr-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\cube_ptr_simple_loading.xml"
+    },
+    {
+        "merged": "D:\\github\\Leisure\\ptr-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\cube_ptr_classic_default_header.xml",
+        "source": "D:\\github\\Leisure\\ptr-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\cube_ptr_classic_default_header.xml"
+    }
+]
