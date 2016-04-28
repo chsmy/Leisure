@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!--底部菜单-->
     <color name="transparent">#00000000 </color>
     <color name="white">#FFFFFF</color>
     <color name="topbar_bg">#12AF4D</color>
@@ -11,6 +12,7 @@
     <color name="tab_text_bg">#bababa</color>
     <color name="line_bg">#f0f0f0</color>
 
+    <!--下拉刷新的bar的颜色-->
     <color name="red">#FFC93437</color>
     <color name="blue">#FF375BF1</color>
     <color name="yellow">#FFF7D23E</color>

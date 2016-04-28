@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="recycle_horizontal_margin">10dp</dimen>
+
+    <!--item_news-->
+    <dimen name="news_image_width">86.0dip</dimen>
+    <dimen name="news_image_height">60.0dip</dimen>
 </resources>

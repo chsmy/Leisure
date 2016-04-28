@@ -1,5 +1,6 @@
-package com.chs.leisure.ui.picture;
+package com.chs.leisure.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
  * 作者：chs on 2016/4/26 17:47
  * 邮箱：657083984@qq.com
  */
-public class PictureDetailActivity extends BaseActivity {
+public class WebDetailActivity extends Activity {
     @Bind(R.id.web_view)
     WebView webView;
     @Bind(R.id.pb_bar)
@@ -36,8 +37,7 @@ public class PictureDetailActivity extends BaseActivity {
     }
 
     private void initView() {
-        int id = getIntent().getIntExtra("id",1);
-        String url = Constant.PIC_WEB+id;
+        String url  = getIntent().getStringExtra("url");
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);

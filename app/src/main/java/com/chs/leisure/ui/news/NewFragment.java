@@ -1,9 +1,10 @@
-package com.chs.leisure.ui.picture;
+package com.chs.leisure.ui.news;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,10 @@ import com.chs.leisure.R;
 import com.chs.leisure.base.BaseAdapter;
 import com.chs.leisure.base.BaseFragment;
 import com.chs.leisure.base.ViewHolder;
-import com.chs.leisure.model.Bean.PictureEntity;
+import com.chs.leisure.model.Bean.NewsEntity;
 import com.chs.leisure.ui.WebDetailActivity;
 import com.chs.leisure.widget.LoadMoreRecyclerView;
+import com.chs.leisure.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,66 +30,76 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 /**
- * 作者：chs on 2016/4/25 17:26
+ * 作者：chs on 2016/4/28 14:08
  * 邮箱：657083984@qq.com
- * 美图的fragment
  */
-public class SecondFragment extends BaseFragment implements PictureContract.View {
-    private PicturePresenter mPresenter;
-    @Bind(R.id.rv_picture)
-    LoadMoreRecyclerView rvPicture;
+public class NewFragment extends BaseFragment implements NewsContract.View {
+    private NewsPresenter mPresenter;
+    @Bind(R.id.rv_news)
+    LoadMoreRecyclerView rvNews;
     private BaseAdapter mAdapter;
     @Bind(R.id.material_style_ptr_frame)
     PtrClassicFrameLayout mPtrFrame;
     private int currentPage = 1;
-    private List<PictureEntity.TngouEntity> mDataList;
+    private List<NewsEntity.NewslistEntity> mDataList;
+    private int type = 0;
+    public static NewFragment NewInstance(Bundle bundle){
+        NewFragment newFragment = new NewFragment();
+        newFragment.setArguments(bundle);
+        return newFragment;
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_second,null);
+        View view = inflater.inflate(R.layout.fragment_news,null);
         ButterKnife.bind(this,view);
-        mPresenter = new PicturePresenter(this);
+        type = getArguments().getInt("type");
+        mPresenter = new NewsPresenter(this);
         initView();
         initEvent();
-//        mPresenter.start(currentPage);
         return view;
     }
-
     private void initEvent() {
-        rvPicture.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
+        rvNews.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
             @Override
             public void loadMore() {
                 currentPage++;
-                mPresenter.start(currentPage);
+                mPresenter.start(currentPage,type);
             }
         });
     }
 
     private void initView() {
         mDataList = new ArrayList<>();
-        mAdapter = new BaseAdapter<PictureEntity.TngouEntity>(getActivity(),R.layout.item_pictures,mDataList) {
+        mAdapter = new BaseAdapter<NewsEntity.NewslistEntity>(getActivity(),R.layout.item_fragment_news,mDataList) {
             @Override
-            public void convert(ViewHolder holder, final PictureEntity.TngouEntity tngouEntity) {
-                holder.setText(R.id.tv_title, tngouEntity.getTitle());
-                holder.setImageWithUrl(R.id.iv_pic, Constant.PIC_HEAD+tngouEntity.getImg());
-                holder.setOnClickListener(R.id.iv_pic, new View.OnClickListener() {
+            public void convert(ViewHolder holder, final NewsEntity.NewslistEntity newslistEntity) {
+                holder.setText(R.id.item_title,newslistEntity.getTitle());
+                holder.setText(R.id.item_time,newslistEntity.getCtime());
+                holder.setImageWithUrl(R.id.left_image,newslistEntity.getPicUrl());
+                holder.setOnClickListener(R.id.title_layout, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(),WebDetailActivity.class);
-                        intent.putExtra("url",Constant.PIC_WEB+tngouEntity.getId());
+                        intent.putExtra("url", newslistEntity.getUrl());
                         getActivity().startActivity(intent);
                     }
                 });
             }
         };
-        rvPicture.setLayoutManager(new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL));
-        rvPicture.setAdapter(mAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        rvNews.setLayoutManager(layoutManager);
+        rvNews.addItemDecoration(new RecycleViewDivider(getActivity()));
+        rvNews.setAdapter(mAdapter);
+        initPtr();
+    }
+
+    private void initPtr() {
         mPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 currentPage = 1;
-                mPresenter.start(currentPage);
+                mPresenter.start(currentPage,type);
             }
 
             @Override
@@ -112,21 +124,17 @@ public class SecondFragment extends BaseFragment implements PictureContract.View
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void lazyLoad() {
+
     }
 
     @Override
-    public void showInfo(PictureEntity entity) {
+    public void showInfo(NewsEntity entity) {
         mPtrFrame.refreshComplete();
         if(currentPage==1){
             mDataList.clear();
         }
-        mDataList.addAll(entity.getTngou());
+        mDataList.addAll(entity.getNewslist());
         mAdapter.notifyDataSetChanged();
-    }
-    @Override
-    protected void lazyLoad() {
-
     }
 }

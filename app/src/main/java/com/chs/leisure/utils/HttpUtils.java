@@ -3,9 +3,13 @@ package com.chs.leisure.utils;
 import com.chs.leisure.Constant;
 import com.chs.leisure.utils.scalars.ScalarsConverterFactory;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -48,5 +52,32 @@ public class HttpUtils {
                 .build();
 
         return retrofit;
+    }
+    public Retrofit initRetrofitWithHeader(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(genericClient())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(Constant.BaseNewsUrl)
+                .build();
+        return retrofit;
+    }
+
+    public static OkHttpClient genericClient() {
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request()
+                                .newBuilder()
+                                .addHeader("apikey", "2ffc3e48c7086e0e1faa003d781c0e69")
+                                .build();
+                        return chain.proceed(request);
+                    }
+
+                })
+                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .build();
+        return httpClient;
     }
 }

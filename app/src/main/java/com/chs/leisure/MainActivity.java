@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.chs.leisure.base.BaseActivity;
 import com.chs.leisure.ui.news.FirstFragment;
@@ -30,12 +31,15 @@ public class MainActivity extends BaseActivity {
     private Fragment mTab02;
     private Fragment mTab03;
     private Fragment mTab04;
+    private long touchTime = 0;
+    private static final long DOUBLE_CLICK_INTEVAL = 2 * 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initToolBar();
+        setSelect(0);
     }
 
     private void initToolBar() {
@@ -159,5 +163,18 @@ public class MainActivity extends BaseActivity {
         mTabs.get(1).setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.tab_move_icon, 0, 0);
         mTabs.get(2).setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.tab_found_icon, 0, 0);
         mTabs.get(3).setCompoundDrawablesWithIntrinsicBounds(0,R.mipmap.tab_me_icon, 0, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - touchTime) >= DOUBLE_CLICK_INTEVAL) {
+            Toast.makeText(getApplicationContext(),"再按一次返回桌面",Toast.LENGTH_SHORT).show();
+            touchTime = currentTime;
+        } else {
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+        }
     }
 }

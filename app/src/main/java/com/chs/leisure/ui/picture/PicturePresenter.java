@@ -1,11 +1,9 @@
 package com.chs.leisure.ui.picture;
 
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.chs.leisure.model.Bean.PictureEntity;
-import com.chs.leisure.model.impl.PictureTask;
+import com.chs.leisure.model.impl.BusinessTask;
 import com.chs.leisure.utils.GsonUtil;
 import com.chs.leisure.utils.LogUtils;
 
@@ -16,12 +14,12 @@ import rx.Subscriber;
  * 邮箱：657083984@qq.com
  */
 public class PicturePresenter implements PictureContract.Presenter {
-    private PictureTask mPictureTask;
+    private BusinessTask mPictureTask;
     private PictureContract.View mPictureView;
 
     public PicturePresenter( PictureContract.View pictureView) {
         this.mPictureView = pictureView;
-        mPictureTask = new PictureTask();
+        mPictureTask = new BusinessTask();
     }
 
     @Override
