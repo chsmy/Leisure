@@ -12,3 +12,5 @@
 封装了下RecycleView使其具有下拉刷新和滑倒底部加载功能   <br />
 
 效果图：<br />
+![img](https://github.com/chsmy/Leisure/blob/master/119.gif)
+![img](https://github.com/chsmy/Leisure/blob/master/120.gif)
