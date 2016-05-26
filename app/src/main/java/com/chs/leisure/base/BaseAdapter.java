@@ -2,10 +2,12 @@ package com.chs.leisure.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,18 +21,22 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     protected LayoutInflater mInflater;
 
     private OnItemClickListener mOnItemClickListener;
+    private List<Integer> heights;
+    private RecyclerView mRecyclerView;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener)
     {
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public BaseAdapter(Context context, int layoutId, List<T> datas)
+    public BaseAdapter(Context context, int layoutId, List<T> datas,RecyclerView recyclerView)
     {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mLayoutId = layoutId;
         mDatas = datas;
+        mRecyclerView = recyclerView;
+        getRandomHeight(3);
     }
 
     @Override
@@ -87,7 +93,13 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position)
     {
-        holder.updatePosition(position);
+        RecyclerView.LayoutManager manager = mRecyclerView.getLayoutManager();
+        if(manager instanceof StaggeredGridLayoutManager){
+            ViewGroup.LayoutParams params =  holder.itemView.getLayoutParams();//得到item的LayoutParams布局参数
+            params.height = heights.get((int) (Math.random()*3));//把随机的高度赋予item布局
+            holder.itemView.setLayoutParams(params);//把params设置给item布局
+            holder.updatePosition(position);
+        }
         convert(holder, mDatas.get(position));
     }
 
@@ -97,5 +109,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     public int getItemCount()
     {
         return mDatas.size();
+    }
+    private void getRandomHeight(int count){//得到随机item的高度
+        heights = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            heights.add((int)(200+Math.random()*400));
+        }
     }
 }

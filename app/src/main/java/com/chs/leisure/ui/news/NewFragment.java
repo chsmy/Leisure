@@ -71,7 +71,7 @@ public class NewFragment extends BaseFragment implements NewsContract.View {
 
     private void initView() {
         mDataList = new ArrayList<>();
-        mAdapter = new BaseAdapter<NewsEntity.NewslistEntity>(getActivity(),R.layout.item_fragment_news,mDataList) {
+        mAdapter = new BaseAdapter<NewsEntity.NewslistEntity>(getActivity(),R.layout.item_fragment_news,mDataList,rvNews) {
             @Override
             public void convert(ViewHolder holder, final NewsEntity.NewslistEntity newslistEntity) {
                 holder.setText(R.id.item_title,newslistEntity.getTitle());

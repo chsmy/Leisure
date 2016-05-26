@@ -65,7 +65,7 @@ public class SecondFragment extends BaseFragment implements PictureContract.View
 
     private void initView() {
         mDataList = new ArrayList<>();
-        mAdapter = new BaseAdapter<PictureEntity.TngouEntity>(getActivity(),R.layout.item_pictures,mDataList) {
+        mAdapter = new BaseAdapter<PictureEntity.TngouEntity>(getActivity(),R.layout.item_pictures,mDataList,rvPicture) {
             @Override
             public void convert(ViewHolder holder, final PictureEntity.TngouEntity tngouEntity) {
                 holder.setText(R.id.tv_title, tngouEntity.getTitle());
