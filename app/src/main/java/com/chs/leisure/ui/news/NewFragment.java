@@ -62,7 +62,7 @@ public class NewFragment extends BaseFragment implements NewsContract.View {
     private void initEvent() {
         rvNews.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
             @Override
-            public void loadMore() {
+            public void onLoadMore() {
                 currentPage++;
                 mPresenter.start(currentPage,type);
             }

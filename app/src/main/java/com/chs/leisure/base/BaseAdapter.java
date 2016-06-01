@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chs.leisure.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     private OnItemClickListener mOnItemClickListener;
     private List<Integer> heights;
     private RecyclerView mRecyclerView;
-
+    private static final int TYPE_NORMAL =  0;
+    private static final int TYPE_FOOTER =  -3;
     public void setOnItemClickListener(OnItemClickListener onItemClickListener)
     {
         this.mOnItemClickListener = onItemClickListener;
@@ -42,9 +45,16 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType)
     {
-        ViewHolder viewHolder = ViewHolder.get(mContext, null, parent, mLayoutId, -1);
-        setListener(parent, viewHolder, viewType);
-        return viewHolder;
+        if(viewType==TYPE_NORMAL){
+            ViewHolder viewHolder = ViewHolder.get(mContext, null, parent, mLayoutId, -1);
+            setListener(parent, viewHolder, viewType);
+            return viewHolder;
+        }else {
+            View itemView = LayoutInflater.from(mContext).inflate(R.layout.listview_footer, parent,
+                    false);
+            ViewHolder holder = new ViewHolder(mContext, itemView, parent, -1);
+            return holder;
+        }
     }
 
     protected int getPosition(RecyclerView.ViewHolder viewHolder)
@@ -100,7 +110,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
             holder.itemView.setLayoutParams(params);//把params设置给item布局
             holder.updatePosition(position);
         }
-        convert(holder, mDatas.get(position));
+        if(mDatas.size()>0&&position<mDatas.size()){
+            convert(holder, mDatas.get(position));
+        }
     }
 
     public abstract void convert(ViewHolder holder, T t);
@@ -108,12 +120,21 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public int getItemCount()
     {
-        return mDatas.size();
+        return mDatas.size()+1;
     }
     private void getRandomHeight(int count){//得到随机item的高度
         heights = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             heights.add((int)(200+Math.random()*400));
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position>=mDatas.size()){
+            return TYPE_FOOTER;
+        }else {
+            return TYPE_NORMAL;
         }
     }
 }

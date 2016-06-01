@@ -56,7 +56,7 @@ public class SecondFragment extends BaseFragment implements PictureContract.View
     private void initEvent() {
         rvPicture.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
             @Override
-            public void loadMore() {
+            public void onLoadMore() {
                 currentPage++;
                 mPresenter.start(currentPage);
             }

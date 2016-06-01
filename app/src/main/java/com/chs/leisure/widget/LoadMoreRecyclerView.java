@@ -8,7 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.chs.leisure.R;
+import com.chs.leisure.base.ViewHolder;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -19,18 +27,33 @@ public class LoadMoreRecyclerView extends RecyclerView {
 
     private boolean isScrollingToBottom = true;
     private FloatingActionButton floatingActionButton;
-    private LoadMoreListener listener;
+    private LoadMoreListener mLoadingListener;
+    private ArrayList<View> mFootViews = new ArrayList<>();
 
     public LoadMoreRecyclerView(Context context) {
         super(context);
+        init(context);
     }
 
     public LoadMoreRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init(context);
     }
 
+    private void init(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.listview_footer,null);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(lp);
+        addFootView(view);
+        mFootViews.get(0).setVisibility(GONE);
+    }
+    public void addFootView(final View view) {
+        mFootViews.clear();
+        mFootViews.add(view);
+    }
     public LoadMoreRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public void applyFloatingActionButton(FloatingActionButton floatingActionButton) {
@@ -38,9 +61,8 @@ public class LoadMoreRecyclerView extends RecyclerView {
     }
 
     public void setLoadMoreListener(LoadMoreListener loadMoreListener){
-        this.listener = loadMoreListener;
+        this.mLoadingListener = loadMoreListener;
     }
-
 
     @Override
     public void onScrolled(int dx, int dy) {
@@ -58,40 +80,7 @@ public class LoadMoreRecyclerView extends RecyclerView {
 
     @Override
     public void onScrollStateChanged(int state) {
-       /* LinearLayoutManager mLayoutManager = (LinearLayoutManager) getLayoutManager();
-        int lastVisibleItemPosition = 0;
-        int totalItemCount = 0;
-        if (mLayoutManager instanceof LinearLayoutManager) {
-            if (state == RecyclerView.SCROLL_STATE_IDLE) {
-                lastVisibleItemPosition = mLayoutManager.findLastCompletelyVisibleItemPosition();
-                totalItemCount = mLayoutManager.getItemCount();
-                if (lastVisibleItemPosition == (totalItemCount - 1) && isScrollingToBottom) {
-                    if (listener != null)
-                        listener.loadMore();
-                }
-            }
-
-        } else if (mLayoutManager instanceof GridLayoutManager) {
-            if (state == RecyclerView.SCROLL_STATE_IDLE) {
-                lastVisibleItemPosition = mLayoutManager.findLastCompletelyVisibleItemPosition();
-                totalItemCount = mLayoutManager.getItemCount();
-                if (lastVisibleItemPosition == (totalItemCount - 1) && isScrollingToBottom) {
-                    if (listener != null)
-                        listener.loadMore();
-                }
-            }
-        }
-*/
-//       LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-//        if (state == RecyclerView.SCROLL_STATE_IDLE) {
-//            int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-//            int totalItemCount = layoutManager.getItemCount();
-//            if (lastVisibleItem == (totalItemCount - 1) && isScrollingToBottom) {
-//                if (listener != null)
-//                    listener.loadMore();
-//            }
-//        }
-        if (state == RecyclerView.SCROLL_STATE_IDLE && listener != null ) {
+        if (state == RecyclerView.SCROLL_STATE_IDLE && mLoadingListener != null) {
             LayoutManager layoutManager = getLayoutManager();
             int lastVisibleItemPosition;
             if (layoutManager instanceof GridLayoutManager) {
@@ -105,7 +94,9 @@ public class LoadMoreRecyclerView extends RecyclerView {
             }
             if (layoutManager.getChildCount() > 0
                     && lastVisibleItemPosition >= layoutManager.getItemCount() - 1 &&  layoutManager.getItemCount() > layoutManager.getChildCount()) {
-                listener.loadMore();
+                    View footView = mFootViews.get(0);
+                footView.setVisibility(View.VISIBLE);
+                mLoadingListener.onLoadMore();
             }
         }
     }
@@ -119,6 +110,6 @@ public class LoadMoreRecyclerView extends RecyclerView {
         return max;
     }
     public interface LoadMoreListener {
-        void loadMore();
+        void onLoadMore();
     }
 }

@@ -40,7 +40,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-
     public static ViewHolder get(Context context, View convertView,
                                  ViewGroup parent, int layoutId, int position) {
         if (convertView == null) {
